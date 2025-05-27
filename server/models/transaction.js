@@ -16,6 +16,12 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Transaction.init({
+    id: {
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+      primaryKey: true,
+      allowNull: false,
+    },
     user_id: DataTypes.UUID,
     account_id: DataTypes.UUID,
     category_id: DataTypes.UUID,
@@ -26,6 +32,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Transaction',
+    tableName: 'transactions',
   });
   return Transaction;
 };

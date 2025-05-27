@@ -2,12 +2,12 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("Accounts", {
+    await queryInterface.createTable("accounts", {
       id: {
         allowNull: false,
-        autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER,
+        type: Sequelize.UUID,
+        defaultValue: Sequelize.literal('(UUID())')
       },
       user_id: {
         allowNull: false,
@@ -32,9 +32,6 @@ module.exports = {
       },
       type: {
         allowNull: false,
-        validate: {
-          isIn: [["cash", "bank", "credit_card", "debit_card"]],
-        },
         type: Sequelize.STRING
       },
       createdAt: {
@@ -48,6 +45,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("Accounts");
+    await queryInterface.dropTable("accounts");
   },
 };

@@ -15,6 +15,12 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Budget.init({
+    id: {
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+      primaryKey: true,
+      allowNull: false,
+    },
     user_id: DataTypes.UUID,
     category_id: DataTypes.UUID,
     amount: DataTypes.DECIMAL,
@@ -23,6 +29,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Budget',
+    tableName: 'budgets',
   });
   return Budget;
 };

@@ -26,11 +26,18 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Category.init({
+    id: {
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+      primaryKey: true,
+      allowNull: false,
+    },
     name: DataTypes.STRING,
     user_id: DataTypes.UUID,
   }, {
     sequelize,
     modelName: 'Category',
+    tableName: 'categories',
   });
   return Category;
 };
