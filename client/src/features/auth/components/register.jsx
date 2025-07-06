@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function Register() {
-
   const navigate = useNavigate();
   //Estado para campos de formulario
   const [formData, setformData] = useState({

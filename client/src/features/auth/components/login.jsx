@@ -1,0 +1,97 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+export default function Login() {
+  const [formData, setFormData] = useState({ email: "", password: "" });
+  const [errors, setErrors] = useState({});
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleLogin = async () => {
+    e.preventDefault();
+    if (handleLogin()) {
+      try {
+        const response = await fetch("api/login", {
+          method: "POST",
+          headers: { "Content-Type": "application.json" },
+          body: JSON.stringify(formData),
+        });
+        const data = await response.json();
+        if (response.ok) {
+          localStorage.setItem("token", data.token);
+          window.location.href = "/perfil";
+        } else {
+          setErrors({ general: "Credenciales Incorrectas" });
+        }
+      } catch (error) {
+        setErrors({ general: "Error al conectar con el servidor" });
+      }
+    }
+  };
+  return (
+    <>
+      <div className="mb-6">
+        <h1>
+          <em>Login to Smart</em>
+          <span className="text-blue-600 font-bold">
+            <em>Budget</em>
+          </span>
+          !
+        </h1>
+      </div>
+
+      <main className="bg-blue-600 p-5 rounded-bl-lg rounded-br-lg">
+        <form onSubmit={handleLogin}>
+          <div className=" flex flex-col">
+            <label className="m-2 text-lg text-left font-bold" htmlFor="email">
+              - Email:
+            </label>
+            <input
+              className="m-2 border-2 p-2 border-white rounded-md bg-white text-black"
+              type="email"
+              id="email"
+              name="email"
+              placeholder=" Enter your email"
+              onChange={handleChange}
+              value={formData.email}
+            />
+            {errors.email && <span className="error">{errors.email}</span>}
+            <label
+              className="m-2 text-lg text-left font-bold"
+              htmlFor="password"
+            >
+              - Password:
+            </label>
+            <input
+              className="m-2 border-2 p-2 border-white rounded-md bg-white text-black shadow-lg"
+              type="password"
+              id="password"
+              name="password"
+              placeholder=" Create a password"
+              onChange={handleChange}
+              value={formData.password}
+            />
+            {errors.password && (
+              <span className="error">{errors.password}</span>
+            )}
+
+            <div className="mt-3">
+              <button
+                type="submit"
+                className="w-full text-white bg-green-700 hover:bg-green-800 font-medium rounded-lg text-sm px-5 py-2.5"
+              >
+                Login
+              </button>
+            </div>
+          </div>
+        </form>
+      </main>
+    </>
+  );
+}
