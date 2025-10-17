@@ -36,7 +36,7 @@ export default function Login() {
   };
   return (
     <>
-      <div className="mb-6">
+      <div className="bg-black text-white p-10 rounded-tl-lg rounded-tr-lg text-center">
         <h1>
           <em>Login to Smart</em>
           <span className="text-blue-600 font-bold">
@@ -84,9 +84,15 @@ export default function Login() {
             <div className="mt-3">
               <button
                 type="submit"
-                className="w-full text-white bg-green-700 hover:bg-green-800 font-medium rounded-lg text-sm px-5 py-2.5"
+                className="mt-1 w-full text-white bg-green-700 hover:bg-green-800 font-medium rounded-lg text-sm px-5 py-2.5"
               >
                 Login
+              </button>
+              <button
+                type="submit"
+                className="mt-4 w-full text-white bg-green-700 hover:bg-green-800 font-medium rounded-lg text-sm px-5 py-2.5"
+              >
+                Create Account
               </button>
             </div>
           </div>

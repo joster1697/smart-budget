@@ -6,10 +6,10 @@ import { Routes, Route } from "react-router-dom";
 function App() {
   return (
     <Routes>
+      <Route path="/login" element={<Login />} /> 
       <Route path="/register" element={<Register />} />
-      <Route path="/login" element={<Login />} />
     </Routes>
   );
 }
-
+//Notas: Revisar path de Routes login y register
 export default App;
