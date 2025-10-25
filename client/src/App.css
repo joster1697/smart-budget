@@ -1,6 +1,4 @@
 /* prueba tailwind */
-@tailwind base;
-@tailwind components;
 @tailwind utilities;
 
 #root {

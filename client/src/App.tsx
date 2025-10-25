@@ -10,9 +10,9 @@ import AddTransactionBtn from "./components/ui/buttons/AddTransactionBtn.jsx"
 function App() {
   return (
     <section className="app-layout">
-      {/* <Sidebar /> */}
+      <Sidebar />
       {/* <Searchbar/> */}
-      <AddTransactionBtn/>
+      {/* <AddTransactionBtn/> */}
       {/* <Footer/> */}
       <main>
         <Routes>
