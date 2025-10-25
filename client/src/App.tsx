@@ -1,15 +1,25 @@
 import "./App.css";
-import Register from "./features/auth/components/register";
-import Login from "./features/auth/components/login";
 import { Routes, Route } from "react-router-dom";
+import Register from "./pages/Register";
+import Login from "./pages/Login";
+import Sidebar from "./components/menus/Sidebar.jsx";
+import Footer from "./components/menus/Footer.jsx";
+import Searchbar from "./components/menus/Searchbar.jsx";
 
 function App() {
   return (
-    <Routes>
-      <Route path="/login" element={<Login />} /> 
-      <Route path="/register" element={<Register />} />
-    </Routes>
+    <section className="app-layout">
+      {/* <Sidebar /> */}
+      <Searchbar/>
+      {/* <Footer/> */}
+      <main>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          {/* <Route path='/Dashboard' element={<Dashboard/>}></Route> */}
+        </Routes>
+      </main>
+    </section>
   );
 }
-//Notas: Revisar path de Routes login y register
 export default App;

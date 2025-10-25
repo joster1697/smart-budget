@@ -45,3 +45,13 @@
 .read-the-docs {
   color: #888;
 }
+
+/* App.tsx Styles */
+.app-layout {
+  display: flex;
+}
+
+main {
+  flex: 1;
+  padding: 20px;
+}

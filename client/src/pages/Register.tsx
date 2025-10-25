@@ -1,20 +1,29 @@
-import { useState } from "react";
+import { useState, ChangeEvent, FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
+
+interface FormData {
+  username: string;
+  email: string;
+  password: string;
+}
+
+interface FormErrors {
+  username?: string;
+  email?: string;
+  password?: string;
+}
 
 export default function Register() {
   const navigate = useNavigate();
-  //Estado para campos de formulario
-  const [formData, setformData] = useState({
+  const [formData, setformData] = useState<FormData>({
     username: "",
     email: "",
     password: "",
   });
 
-  //Estado para errores de validacion
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState<FormErrors>({});
 
-  //Manejar cambios en los inputs
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setformData({
       ...formData,
@@ -22,11 +31,11 @@ export default function Register() {
     });
   };
 
-  //Validar el Formulario
-  const validateForm = () => {
-    const newErrors = {};
-    if (!formData.username)
+  const validateForm = (): boolean => {
+    const newErrors: FormErrors = {};
+    if (!formData.username) {
       newErrors.username = "El campo Username es necesario";
+    }
     if (!formData.email) {
       newErrors.email = "El campo Email es necesario";
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
@@ -34,14 +43,14 @@ export default function Register() {
     }
     if (!formData.password) {
       newErrors.password = "El campo Password es necesario";
-    } else if (!formData.password.length < 5) {
+    } else if (formData.password.length < 5) {
       newErrors.password = "La contrasena debe tener 5 o mas caracteres";
     }
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (validateForm()) {
       console.log("Formulario Enviado:", formData);
@@ -50,7 +59,7 @@ export default function Register() {
   };
 
   return (
-    <>
+    <section>
       <div className="">
         <div className="bg-black text-white p-10 rounded-tl-lg rounded-tr-lg text-center">
           <h1>
@@ -139,6 +148,6 @@ export default function Register() {
           </form>
         </main>
       </div>
-    </>
+    </section>
   );
 }

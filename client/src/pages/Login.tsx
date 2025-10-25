@@ -1,11 +1,27 @@
-import { useState } from "react";
+import { useState, ChangeEvent, FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function Login() {
-  const [formData, setFormData] = useState({ email: "", password: "" });
-  const [errors, setErrors] = useState({});
+interface FormData {
+  email: string;
+  password: string;
+}
 
-  const handleChange = (e) => {
+interface FormErrors {
+  email?: string;
+  password?: string;
+  general?: string;
+}
+
+interface LoginResponse {
+  token: string;
+}
+
+export default function Login() {
+  const [formData, setFormData] = useState<FormData>({ email: "", password: "" });
+  const [errors, setErrors] = useState<FormErrors>({});
+  const navigate = useNavigate();
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
@@ -13,31 +29,27 @@ export default function Login() {
     });
   };
 
-  const navigate = useNavigate();
-
-  const handleLogin = async () => {
+  const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (handleLogin()) {
-      try {
-        const response = await fetch("api/login", {
-          method: "POST",
-          headers: { "Content-Type": "application.json" },
-          body: JSON.stringify(formData),
-        });
-        const data = await response.json();
-        if (response.ok) {
-          localStorage.setItem("token", data.token);
-          window.location.href = "/perfil";
-        } else {
-          setErrors({ general: "Credenciales Incorrectas" });
-        }
-      } catch (error) {
-        setErrors({ general: "Error al conectar con el servidor" });
+    try {
+      const response = await fetch("api/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+      const data: LoginResponse = await response.json();
+      if (response.ok) {
+        localStorage.setItem("token", data.token);
+        window.location.href = "/perfil";
+      } else {
+        setErrors({ general: "Credenciales Incorrectas" });
       }
+    } catch (error) {
+      setErrors({ general: "Error al conectar con el servidor" });
     }
   };
   return (
-    <>
+    <section>
       <div className="bg-black text-white p-10 rounded-tl-lg rounded-tr-lg text-center">
         <h1>
           <em>Login to Smart</em>
@@ -101,6 +113,6 @@ export default function Login() {
           </div>
         </form>
       </main>
-    </>
+    </section>
   );
 }
