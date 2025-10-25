@@ -1,17 +1,17 @@
-'use strict';
-/** @type {import('sequelize-cli').Migration} */
+import { QueryInterface, DataTypes } from 'sequelize';
+
 module.exports = {
-  async up(queryInterface, Sequelize) {
+  async up(queryInterface: QueryInterface) {
     await queryInterface.createTable('budgets', {
       id: {
         allowNull: false,
         primaryKey: true,
-        type: Sequelize.UUID,
-        defaultValue: Sequelize.literal('(UUID())')
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4
       },
       user_id: {
         allowNull: false,
-        type: Sequelize.UUID
+        type: DataTypes.UUID
       },
       category_id: {
         allowNull: false,
@@ -20,22 +20,23 @@ module.exports = {
           key: 'id'
         },
         onDelete: 'CASCADE',
-        type: Sequelize.UUID
+        type: DataTypes.UUID
       },
       amount: {
-        type: Sequelize.DECIMAL
+        type: DataTypes.DECIMAL,
+        allowNull: true
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: DataTypes.DATE
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: DataTypes.DATE
       }
     });
   },
-  async down(queryInterface, Sequelize) {
+  async down(queryInterface: QueryInterface) {
     await queryInterface.dropTable('budgets');
   }
 };

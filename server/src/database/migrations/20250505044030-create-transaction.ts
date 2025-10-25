@@ -1,13 +1,13 @@
-'use strict';
-/** @type {import('sequelize-cli').Migration} */
+import { QueryInterface, DataTypes } from 'sequelize';
+
 module.exports = {
-  async up(queryInterface, Sequelize) {
+  async up(queryInterface: QueryInterface) {
     await queryInterface.createTable('transactions', {
       id: {
         allowNull: false,
         primaryKey: true,
-        type: Sequelize.UUID,
-        defaultValue: Sequelize.literal('(UUID())')
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4
       },
       user_id: {
         allowNull: false,
@@ -16,7 +16,7 @@ module.exports = {
           key: 'id'
         },
         onDelete: 'CASCADE',
-        type: Sequelize.UUID
+        type: DataTypes.UUID
       },
       account_id: {
         references: {
@@ -24,7 +24,8 @@ module.exports = {
           key: 'id'
         },
         onDelete: 'CASCADE',
-        type: Sequelize.UUID
+        type: DataTypes.UUID,
+        allowNull: true
       },
       category_id: {
         references: {
@@ -32,31 +33,36 @@ module.exports = {
           key: 'id'
         },
         onDelete: 'SET NULL',
-        type: Sequelize.UUID
+        type: DataTypes.UUID,
+        allowNull: true
       },
       amount: {
-        type: Sequelize.DECIMAL
+        type: DataTypes.DECIMAL,
+        allowNull: true
       },
       type: {
-        type: Sequelize.STRING
+        type: DataTypes.STRING,
+        allowNull: true
       },
       date: {
-        type: Sequelize.DATE
+        type: DataTypes.DATE,
+        allowNull: true
       },
       description: {
-        type: Sequelize.STRING
+        type: DataTypes.STRING,
+        allowNull: true
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: DataTypes.DATE
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: DataTypes.DATE
       }
     });
   },
-  async down(queryInterface, Sequelize) {
+  async down(queryInterface: QueryInterface) {
     await queryInterface.dropTable('transactions');
   }
 };

@@ -1,16 +1,17 @@
-'use strict';
-/** @type {import('sequelize-cli').Migration} */
+import { QueryInterface, DataTypes } from 'sequelize';
+
 module.exports = {
-  async up(queryInterface, Sequelize) {
+  async up(queryInterface: QueryInterface) {
     await queryInterface.createTable('categories', {
       id: {
         allowNull: false,
         primaryKey: true,
-        type: Sequelize.UUID,
-        defaultValue: Sequelize.literal('(UUID())')
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4
       },
       name: {
-        type: Sequelize.STRING
+        type: DataTypes.STRING,
+        allowNull: true
       },
       user_id: {
         references: {
@@ -18,19 +19,20 @@ module.exports = {
           key: 'id'
         },
         onDelete: 'CASCADE',
-        type: Sequelize.UUID
+        type: DataTypes.UUID,
+        allowNull: true
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: DataTypes.DATE
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: DataTypes.DATE
       }
     });
   },
-  async down(queryInterface, Sequelize) {
+  async down(queryInterface: QueryInterface) {
     await queryInterface.dropTable('categories');
   }
 };
