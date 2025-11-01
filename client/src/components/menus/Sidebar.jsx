@@ -1,7 +1,6 @@
 import { NavLink } from "react-router-dom";
 
 const Sidebar = () => {
-
   const currentYear = new Date().getFullYear();
 
   const links = [

@@ -5,14 +5,16 @@ import Login from "./pages/Login";
 import Sidebar from "./components/menus/Sidebar.jsx";
 import Footer from "./components/menus/Footer.jsx";
 import Searchbar from "./components/menus/Searchbar.jsx";
-import AddTransactionBtn from "./components/ui/buttons/AddTransactionBtn.jsx"
+import AddTransactionBtn from "./components/ui/buttons/AddTransactionBtn.jsx";
+import Dashboard from "./pages/Dashboard.js";
 
 function App() {
   return (
     <section className="app-layout">
+      {/* <Searchbar /> */}
       <Sidebar />
-      {/* <Searchbar/> */}
       {/* <AddTransactionBtn/> */}
+      <Dashboard/>
       {/* <Footer/> */}
       <main>
         <Routes>
